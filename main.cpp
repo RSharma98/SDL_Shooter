@@ -24,7 +24,7 @@ int main(int args, char* argv[]) {
 		deltaTime = (double)((NOW - LAST) / (double)SDL_GetPerformanceFrequency());
 		Time::SetDeltaTime(deltaTime);
 
-		std::cout << "FPS: " << (1.0f / deltaTime) << '\n';
+		//std::cout << "FPS: " << (1.0f / deltaTime) << '\n';
 	}
 	//Clean the game if it's not running
 	game->Clean();

@@ -1,9 +1,10 @@
 #include "PlayerObject.h"
 #include <iostream>
 #include "MathHelper.h"
+#include "Time.h"
 
 PlayerObject::PlayerObject() {
-
+	m_MoveSpeed = 5.0f;
 }
 
 PlayerObject::~PlayerObject(){
@@ -18,6 +19,19 @@ void PlayerObject::Initialise(SDL_Renderer* renderer, Vector2 position, Vector2 
 }
 
 void PlayerObject::Update() {
+	Vector2 dir = Vector2(0, 0);	//A vector2 to store direction based on input
+
+	//X axis input
+	if (Input::GetKey(Input::KeyCode::A) || Input::GetKey(Input::KeyCode::LeftArrow)) dir.x = -1;
+	else if (Input::GetKey(Input::KeyCode::D) || Input::GetKey(Input::KeyCode::RightArrow)) dir.x = 1;
+
+	//Y axis input
+	if (Input::GetKey(Input::KeyCode::S) || Input::GetKey(Input::KeyCode::DownArrow)) dir.y = -1;
+	else if (Input::GetKey(Input::KeyCode::W) || Input::GetKey(Input::KeyCode::UpArrow)) dir.y = 1;
+
+	//Modify the position
+	m_Pos += dir * m_MoveSpeed * Time::GetDeltaTime();
+
 	box.position = m_Pos;
 	GameObject::Update();
 	box.Update();
@@ -26,30 +40,6 @@ void PlayerObject::Update() {
 void PlayerObject::Render(SDL_Renderer* renderer) {
 	GameObject::Render(renderer);
 	box.Render(renderer, SDL_Color{ 0, 255, 0, 255 });
-}
-
-void PlayerObject::MoveHorizontal(float speed, BoxCollider2D enemy) {
-	/*box.position = Camera::Instance->WorldToScreenUnits(Vector2(m_Pos.x + speed, m_Pos.y));
-	if (!box.IsColliding(enemy)) m_Pos.x += speed;
-	Update();*/
-
-	float startPos = m_Pos.x;
-	float targetPos = m_Pos.x + speed;
-	//std::cout << "Unit Difference: " << (targetPos - startPos) << '\n';
-	//std::cout << "Pixel Difference: " << ((Camera::Instance->WorldToScreenUnits(m_Pos).x + (speed * Camera::Instance->GetUnitSize())) - Camera::Instance->WorldToScreenUnits(m_Pos).x) << '\n';
-	float t = 0;
-	while (t < 1.0f) {
-		//Once you implement the uniform grid you'll need to update actor position on it before checking for collision
-		if (box.IsColliding(enemy)) {
-			std::cout << m_Pos.x;
-			//m_Pos.x = enemy.GetBottomRight().x + enemy.offset.x - enemy.size.x;
-			std::cout << '\t' << m_Pos.x << '\n';
-			break;
-		}
-		m_Pos.x = MathHelper::Lerp(startPos, targetPos, t);
-		Update();
-		t += 0.01f;
-	}
 }
 
 void PlayerObject::SetPosition(Vector2 position) { 

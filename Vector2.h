@@ -10,6 +10,7 @@ public:
 
 	Vector2 operator*(float n);
 	Vector2 operator+(Vector2 v);
+	void operator+=(Vector2 v);
 };
 
 #endif // !VECTOR2_H

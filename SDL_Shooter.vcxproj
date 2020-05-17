@@ -81,6 +81,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="RenderManager.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="RenderManager.h" />

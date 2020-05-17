@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "RenderManager.h"
 #include "PlayerObject.h"
+#include "Input.h"
 
 class Game {
 public:
@@ -35,6 +36,7 @@ private:
 	Camera* camera;
 	PlayerObject* player;
 	PlayerObject* enemy;
+	Input* input;
 };
 
 #endif // !GAME_H

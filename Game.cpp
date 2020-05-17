@@ -8,6 +8,7 @@ SDL_Renderer* Game::renderer = nullptr;
 Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fullscreen) {
 	Game::Width = width;
 	Game::Height = height;
+	input = new Input();
 	std::cout << Game::Width << ", " << Game::Height << '\n';
 	camera = new Camera(5);
 	std::cout << camera->position.x << ", " << camera->position.y << '\n';
@@ -38,16 +39,16 @@ Game::~Game() {
 }
 
 void Game::Initialise() {
-	player->Initialise(renderer, Vector2(50, 0), Vector2(1, 1));
+	player->Initialise(renderer, Vector2(0, 0), Vector2(1, 1));
 	enemy->Initialise(renderer, Vector2(0, 0), Vector2(0.5f, 3));
 }
 
 void Game::Update() {
-	player->Update();
-	enemy->Update();
 	SDL_GetMouseState(&mouseX, &mouseY);
-	player->MoveHorizontal(-50.0f * Time::GetDeltaTime(), enemy->GetBox());
+	//player->MoveHorizontal(-1);
+	player->Update();
 	enemy->SetPosition(Camera::Instance->ScreenToWorldUnits(Vector2(mouseX, mouseY)));
+	//if (Input::GetKeyDown(Input::KeyCode::A)) std::cout << "A button is pressed\n";
 	//enemy->SetPosition(camera->WorldToScreenUnits(Vector2(0, 0)));
 	//if (!player->GetBox().IsColliding(enemy->GetBox())) {
 		//player->Fall(0.1f * Time::GetDeltaTime());
@@ -61,12 +62,24 @@ void Game::Update() {
 
 //This function handles keyboard movement (moving the player and quitting)
 void Game::HandleEvents() {
+	//Check if the game should close
 	SDL_Event event;
-	while (SDL_PollEvent(&event) != 0) {
-		if (event.type == SDL_QUIT) {
-			isRunning = false;
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT) isRunning = false;
+		if (event.type == SDL_KEYDOWN) {
+			switch (event.key.keysym.sym) {
+			case SDLK_ESCAPE: isRunning = false;
+				break;
+			}
 		}
 	}
+
+	//Check for keyboard input
+	SDL_PumpEvents();
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+	input->GetInput(keystate);
+
+	
 }
 
 void Game::Render() {

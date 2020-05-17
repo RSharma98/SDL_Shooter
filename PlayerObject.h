@@ -4,6 +4,7 @@
 
 #include "GameObject.h"
 #include "BoxCollider2D.h"
+#include "Input.h"
 
 class PlayerObject : public GameObject
 {
@@ -13,13 +14,12 @@ public:
 	void Initialise(SDL_Renderer* renderer, Vector2 position, Vector2 size);
 	void Update();
 	void Render(SDL_Renderer* renderer);
-	void MoveHorizontal(float speed, BoxCollider2D enemy);
 	void SetPosition(Vector2 position);
 	void Fall(float speed);
 	BoxCollider2D GetBox() { return box; }
 
 private:
-	const int moveSpeed = 10;
+	float m_MoveSpeed;
 	BoxCollider2D box;
 };
 

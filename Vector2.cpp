@@ -24,3 +24,8 @@ Vector2 Vector2::operator+(Vector2 v)
 {
 	return Vector2(x + v.x, y + v.y);
 }
+
+void Vector2::operator+=(Vector2 v) {
+	x += v.x;
+	y += v.y;
+}

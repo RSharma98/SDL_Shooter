@@ -5,6 +5,12 @@ std::vector<Input::KeyCode> Input::m_CurrentInput;				//All the keys that are cu
 std::vector<Input::KeyCode> Input::m_KeysPressedThisFrame;		//All the keys that were pressed this frame
 std::vector<Input::KeyCode> Input::m_KeysReleasedThisFrame;		//All the keys that were released this frame
 
+bool Input::m_MouseButtonsHeld[3] = { false, false, false };						//The mouse buttons currently held down
+bool Input::m_MouseButtonsPressedThisFrame[3] = { false, false, false };			//The mouse buttons pressed this frame
+bool Input::m_MouseButtonsReleasedThisFrame[3] = { false, false, false };			//The mouse buttons that were released this frame
+
+Vector2 Input::m_MousePos = Vector2();	//The mouse position (in screen coordinates)
+
 SDL_Keycode Input::KeyCodeToSDL(Input::KeyCode key) {
 	switch (key) {
 		case Num0: return SDLK_0;
@@ -111,9 +117,18 @@ int Input::FoundKey(std::vector<Input::KeyCode>* list, Input::KeyCode key) {
 	return -1;
 }
 
+bool Input::CheckButton(bool arr[3], int button) {
+	if (button < 0 || button >= 3) return false;
+	return arr[button];
+}
+
 void Input::BeginInput() {
 	m_KeysPressedThisFrame.clear();
 	m_KeysReleasedThisFrame.clear();
+	for (int i = 0; i < 3; i++) {
+		m_MouseButtonsPressedThisFrame[i] = false;
+		m_MouseButtonsReleasedThisFrame[i] = false;
+	}
 }
 
 void Input::AddKeyPressed(SDL_Keycode key) {
@@ -129,6 +144,28 @@ void Input::AddKeyReleased(SDL_Keycode key) {
 	m_KeysReleasedThisFrame.push_back(Input::SDLToKeyCode(key));
 	int currentIndex = Input::FoundKey(&m_CurrentInput, Input::SDLToKeyCode(key));
 	if (currentIndex != -1) m_CurrentInput.erase(m_CurrentInput.begin() + currentIndex);
+}
+
+void Input::AddMouseButton(int button) {
+	button -= 1;
+	if (button >= 0 && button < 3) {
+		//std::cout << "Pressed mouse button " << button << '\n';
+		m_MouseButtonsHeld[button] = true;
+		m_MouseButtonsPressedThisFrame[button] = true;
+	}
+}
+
+void Input::RemoveMouseButton(int button) {
+	button -= 1;
+	if (button >= 0 && button < 3) {
+		//std::cout << "Released mouse button " << button << '\n';
+		m_MouseButtonsReleasedThisFrame[button] = true;
+		m_MouseButtonsHeld[button] = false;
+	}
+}
+
+void Input::SetMousePosition(Vector2 pos) {
+	m_MousePos = pos;
 }
 
 bool Input::GetKey(KeyCode key)
@@ -148,25 +185,25 @@ bool Input::GetKeyUp(KeyCode key)
 
 bool Input::AnyKey()
 {
-	return false;
+	return m_CurrentInput.size() > 0;
 }
 
 bool Input::GetMouseButton(int button)
 {
-	return false;
+	return CheckButton(m_MouseButtonsHeld, button);
 }
 
 bool Input::GetMouseButtonDown(int button)
 {
-	return false;
+	return CheckButton(m_MouseButtonsPressedThisFrame, button);
 }
 
 bool Input::GetMouseButtonUp(int button)
 {
-	return false;
+	return CheckButton(m_MouseButtonsReleasedThisFrame, button);
 }
 
 Vector2 Input::GetMousePosition()
 {
-	return Vector2();
+	return m_MousePos;
 }

@@ -30,7 +30,6 @@ private:
 	bool isMainMenu = true;
 	SDL_Window* window;
 	static int m_Width, m_Height;
-	int mouseX, mouseY;
 
 	RenderManager* renderManager;
 	Camera* camera;

@@ -17,7 +17,6 @@ Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fu
 	frames = 0;
 	player = new PlayerObject();
 	enemy = new PlayerObject();
-	mouseX = mouseY = 0;
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 	renderManager = new RenderManager();
 	isRunning = false;
@@ -44,10 +43,9 @@ void Game::Initialise() {
 }
 
 void Game::Update() {
-	SDL_GetMouseState(&mouseX, &mouseY);
 	//player->MoveHorizontal(-1);
 	player->Update();
-	enemy->SetPosition(Camera::Instance->ScreenToWorldUnits(Vector2(mouseX, mouseY)));
+	enemy->SetPosition(Camera::Instance->ScreenToWorldUnits(Input::GetMousePosition()));
 	//if (Input::GetKeyDown(Input::KeyCode::A)) std::cout << "A button is pressed\n";
 	//enemy->SetPosition(camera->WorldToScreenUnits(Vector2(0, 0)));
 	//if (!player->GetBox().IsColliding(enemy->GetBox())) {
@@ -72,7 +70,15 @@ void Game::HandleEvents() {
 
 		//Store the keys released this frame
 		if (event.type == SDL_KEYUP) input->AddKeyReleased(event.key.keysym.sym);
+
+		if (event.type == SDL_MOUSEBUTTONDOWN) input->AddMouseButton(event.button.button);
+
+		if (event.type == SDL_MOUSEBUTTONUP) input->RemoveMouseButton(event.button.button);
 	}
+
+	int mouseX = 0, mouseY = 0;
+	SDL_GetMouseState(&mouseX, &mouseY);
+	input->SetMousePosition(Vector2(mouseX, mouseY));
 
 	if (input->GetKeyUp(Input::KeyCode::Escape)) isRunning = false;
 }

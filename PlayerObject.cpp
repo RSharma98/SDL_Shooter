@@ -32,6 +32,8 @@ void PlayerObject::Update() {
 	//Modify the position
 	m_Pos += dir * m_MoveSpeed * Time::GetDeltaTime();
 
+	//if (Input::GetKeyDown(Input::KeyCode::A)) std::cout << "A\n";
+
 	box.position = m_Pos;
 	GameObject::Update();
 	box.Update();

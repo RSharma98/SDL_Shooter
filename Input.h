@@ -14,9 +14,12 @@ public:
 	enum KeyCode{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
 					LeftArrow, RightArrow, UpArrow, DownArrow,
 					Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
+					Space, Enter, Escape,
 					UNKNOWN};
 
-	void GetInput(const Uint8* keyboard);		//Store the keys pressed this frame
+	void BeginInput();							//Begin input detection
+	void AddKeyPressed(SDL_Keycode key);		//Add the keys pressed this frame
+	void AddKeyReleased(SDL_Keycode key);		//Add the keys released this frame
 
 	static bool GetKey(KeyCode key);			//A key is held down
 	static bool GetKeyDown(KeyCode key);		//A key was pressed this frame
@@ -30,8 +33,13 @@ public:
 	static Vector2 GetMousePosition();			//Get the position of the mouse on the screen
 
 private:
-	static Uint8* m_InputThisFrame;
-	static Uint8* m_InputLastFrame;
-	static SDL_Scancode KeyCodeToScanCode(KeyCode key);				//Convert a provided scancode to keycode
+	static std::vector<KeyCode> m_CurrentInput;				//All the keys that are currently held down
+	static std::vector<KeyCode> m_KeysPressedThisFrame;		//All the keys that were pressed this frame
+	static std::vector<KeyCode> m_KeysReleasedThisFrame;	//All the keys that were released this frame
+	
+	static KeyCode SDLToKeyCode(SDL_Keycode key);			//Convert an SDL_Keycode to this KeyCode
+	static SDL_Keycode KeyCodeToSDL(KeyCode key);			//Convert KeyCode to SDL_Keycode
+
+	static int FoundKey(std::vector<KeyCode>* list, KeyCode key);	//Check if key is found in the vector list
 };
 #endif // !INPUT_H

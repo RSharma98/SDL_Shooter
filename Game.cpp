@@ -62,24 +62,19 @@ void Game::Update() {
 
 //This function handles keyboard movement (moving the player and quitting)
 void Game::HandleEvents() {
-	//Check if the game should close
+	input->BeginInput();	//Begin input detection
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) isRunning = false;
-		if (event.type == SDL_KEYDOWN) {
-			switch (event.key.keysym.sym) {
-			case SDLK_ESCAPE: isRunning = false;
-				break;
-			}
-		}
+
+		//Store all the keys pressed this frame
+		if (event.type == SDL_KEYDOWN) input->AddKeyPressed(event.key.keysym.sym);
+
+		//Store the keys released this frame
+		if (event.type == SDL_KEYUP) input->AddKeyReleased(event.key.keysym.sym);
 	}
 
-	//Check for keyboard input
-	SDL_PumpEvents();
-	const Uint8* keystate = SDL_GetKeyboardState(NULL);
-	input->GetInput(keystate);
-
-	
+	if (input->GetKeyUp(Input::KeyCode::Escape)) isRunning = false;
 }
 
 void Game::Render() {

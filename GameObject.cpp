@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameObject::GameObject() {
-	destRect = sourceRect = SDL_Rect{ 0, 0, 0, 0 };
+	spriteRenderer = new SpriteRenderer();
 }
 
 GameObject::~GameObject() {
@@ -14,21 +14,10 @@ void GameObject::Initialise(SDL_Renderer* renderer, Vector2 position, Vector2 si
 	spriteRenderer = new SpriteRenderer();
 	m_Pos = position;
 	m_Size = size;
-
-	destRect.x = m_Pos.x - (m_Size.x / 2);
-	destRect.y = m_Pos.y - (m_Size.y / 2);
-	destRect.w = m_Size.x;
-	destRect.h = m_Size.y;
-	spriteRenderer->Initialise(spritePath, renderer, sourceRect);
 }
 
 //Update moves the sprite as needed
 void GameObject::Update() {
-	destRect.x = m_Pos.x - (m_Size.x / 2);
-	destRect.y = m_Pos.y - (m_Size.y / 2);
-	destRect.w = m_Size.x;
-	destRect.h = m_Size.y;
-
 	RenderManager::Instance->AddToRenderQueue(spriteRenderer, m_Pos, m_Size);
 	//Todo, update sprite renderer values based on object's transform
 }
@@ -36,14 +25,6 @@ void GameObject::Update() {
 //This function renders the sprite (obviously)
 void GameObject::Render(SDL_Renderer *renderer) {
 	//spriteRenderer->Render(renderer);
-}
-
-void GameObject::Hide() {
-	spriteRenderer->renderSprite = false;
-}
-
-void GameObject::MakeVisible() {
-	spriteRenderer->renderSprite = true;
 }
 
 //This function generates a random number between zero and max

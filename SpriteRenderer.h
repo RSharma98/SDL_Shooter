@@ -3,14 +3,14 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "Texture.h"
 
 class SpriteRenderer {
 public:
-	void Initialise(const char* path, SDL_Renderer* renderer, SDL_Rect source);
-	void UpdateSourceRect(SDL_Rect source);
+	SpriteRenderer();
+	void SetTexture(Texture* texture);
 
-	SDL_Texture* sprite;
-	SDL_Rect sourceRect;
+	Texture* m_Texture;
 	bool flipX = false;
 	bool flipY = false;
 	bool renderSprite = true;

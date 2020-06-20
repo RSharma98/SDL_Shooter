@@ -22,9 +22,7 @@ public:
 
 protected:
 	int Random(int max);
-	const char* spritePath;
 	SpriteRenderer* spriteRenderer;
-	SDL_Rect sourceRect, destRect;
 	Vector2 m_Pos;
 	Vector2 m_Size;
 };

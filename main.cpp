@@ -10,7 +10,14 @@ int main(int args, char* argv[]) {
 	double deltaTime = 0;								//The time between frames
 	double timeElapsed = 0;								//The time elapsed since the game began
 
-	game = new Game("SDL Platformer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, false);	//Initialise the game
+	//Change this to alter the window size to best suit your monitor
+	unsigned int MAX_WIDTH = 1500;
+
+	//Calculate the width and height of the window to be 16:9 
+	unsigned int WIDTH = MAX_WIDTH - (MAX_WIDTH % 16);
+	unsigned int HEIGHT = (WIDTH / 16) * 9;
+
+	game = new Game("SDL Platformer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, false);	//Initialise the game
 	game->Initialise();
 	while (game->Running()) {			//While the game is running
 		LAST = NOW;

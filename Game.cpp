@@ -16,7 +16,6 @@ Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fu
 	window = nullptr;
 	frames = 0;
 	player = new PlayerObject();
-	enemy = new PlayerObject();
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 	renderManager = new RenderManager();
 	isRunning = false;
@@ -24,7 +23,7 @@ Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fu
 		window = SDL_CreateWindow(title, xPos, yPos, width, height, flags);
 		if (window) std::cout << "Window created.\n";
 
-		renderer = SDL_CreateRenderer(window, -1, 0);
+		Game::renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer) std::cout << "Renderer created.\n";
 		isRunning = true;
 
@@ -39,23 +38,10 @@ Game::~Game() {
 
 void Game::Initialise() {
 	player->Initialise(renderer, Vector2(0, 0), Vector2(1, 1));
-	enemy->Initialise(renderer, Vector2(0, 0), Vector2(0.5f, 3));
 }
 
 void Game::Update() {
-	//player->MoveHorizontal(-1);
 	player->Update();
-	enemy->SetPosition(Camera::Instance->ScreenToWorldUnits(Input::GetMousePosition()));
-	//if (Input::GetKeyDown(Input::KeyCode::A)) std::cout << "A button is pressed\n";
-	//enemy->SetPosition(camera->WorldToScreenUnits(Vector2(0, 0)));
-	//if (!player->GetBox().IsColliding(enemy->GetBox())) {
-		//player->Fall(0.1f * Time::GetDeltaTime());
-		//enemy->Fall(10 * Time::GetDeltaTime());
-		//enemy->SetPosition(camera->WorldToScreenUnits(enemy->GetPos()));
-		//player->MoveHorizontal(50.0f * Time::GetDeltaTime());
-		//enemy->MoveHorizontal(-50.0f * Time::GetDeltaTime());
-	//}
-	frames++;
 }
 
 //This function handles keyboard movement (moving the player and quitting)
@@ -89,9 +75,8 @@ void Game::Render() {
 
 	//Add stuff to render here
 	renderManager->Render(renderer);
-	player->Render(renderer);
-	enemy->Render(renderer);
 
+	player->Render(renderer);
 	camera->Render(renderer);
 
 	SDL_RenderPresent(renderer);						//Render the frame
@@ -102,5 +87,8 @@ void Game::Clean() {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+
+	delete camera;
+
 	std::cout << "Game cleaned.\n";
 }

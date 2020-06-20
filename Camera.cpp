@@ -11,6 +11,10 @@ Camera::Camera(float orthoSize)
 	this->unitSize = Game::Height / (orthoSize * 2.0f);
 }
 
+Camera::~Camera() {
+	Instance = NULL;
+}
+
 void Camera::Render(SDL_Renderer* renderer) {
 	Vector2 updatedPos = WorldToScreenUnits(position);
 	Vector2 topLeft(updatedPos.x - (unitSize / 2.0f), updatedPos.y - (unitSize / 2.0f));
@@ -20,6 +24,7 @@ void Camera::Render(SDL_Renderer* renderer) {
 	SDL_RenderDrawLine(renderer, bottomRight.x, topLeft.y, bottomRight.x, bottomRight.y);
 	SDL_RenderDrawLine(renderer, bottomRight.x, bottomRight.y, topLeft.x, bottomRight.y);
 	SDL_RenderDrawLine(renderer, topLeft.x, bottomRight.y, topLeft.x, topLeft.y);
+	//delete &updatedPos;
 }
 //Convert from world units to on screen co-ordinates
 Vector2 Camera::WorldToScreenUnits(Vector2 v) {

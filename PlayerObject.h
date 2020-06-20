@@ -5,7 +5,8 @@
 #include "GameObject.h"
 #include "BoxCollider2D.h"
 #include "Input.h"
-
+#include "Animation.h"
+#include "Animator.h"
 class PlayerObject : public GameObject
 {
 public:
@@ -21,6 +22,15 @@ public:
 private:
 	float m_MoveSpeed;
 	BoxCollider2D box;
+
+	Animator* m_Animator;
+
+	std::vector<Texture*> m_IdleTextures;
+	Animation* m_IdleAnimation;
+	
+	std::vector<Texture*> m_RunTextures;
+	Animation* m_RunAnimation;
+
 };
 
 #endif // !PLAYER_OBJECT_H

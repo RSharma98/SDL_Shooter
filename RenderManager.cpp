@@ -34,7 +34,18 @@ void RenderManager::Render(SDL_Renderer* renderer) {
 		destRect.y = screenPos.y - spriteSize.y / 2;
 		destRect.w = spriteSize.x;
 		destRect.h = spriteSize.y;
-		SDL_RenderCopy(renderer, sprite.spriteRenderer->sprite, &sprite.spriteRenderer->sourceRect, &destRect);
+
+		if (sprite.spriteRenderer->flipX || sprite.spriteRenderer->flipY) {
+			SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE;
+			float angle = 0;
+			if (sprite.spriteRenderer->flipX && !sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+			else if (!sprite.spriteRenderer->flipX && sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_VERTICAL;
+			else angle = 180.0f;
+			SDL_RenderCopyEx(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect, angle, NULL, flip);
+		}
+		else {
+			SDL_RenderCopy(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect);
+		}
 	}
 	sprites.clear();
 }

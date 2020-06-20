@@ -7,6 +7,7 @@
 class Camera {
 public:
 	Camera(float orthoSize);
+	~Camera();
 	void Render(SDL_Renderer* renderer);
 	Vector2 WorldToScreenUnits(Vector2 v);
 	Vector2 ScreenToWorldUnits(Vector2 v);

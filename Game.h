@@ -34,7 +34,6 @@ private:
 	RenderManager* renderManager;
 	Camera* camera;
 	PlayerObject* player;
-	PlayerObject* enemy;
 	Input* input;
 };
 

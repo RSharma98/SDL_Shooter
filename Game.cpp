@@ -16,6 +16,7 @@ Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fu
 	window = nullptr;
 	frames = 0;
 	player = new PlayerObject();
+	enemy = new EnemyObject();
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 	renderManager = new RenderManager();
 	isRunning = false;
@@ -37,11 +38,13 @@ Game::~Game() {
 }
 
 void Game::Initialise() {
-	player->Initialise(renderer, Vector2(0, 0), Vector2(1, 1));
+	player->Initialise(Vector2(0, 0), Vector2(1, 1));
+	enemy->Initialise(Vector2(0, 0), Vector2(1, 1.25f));
 }
 
 void Game::Update() {
 	player->Update();
+	enemy->Update(player->GetPos());
 }
 
 //This function handles keyboard movement (moving the player and quitting)
@@ -75,8 +78,8 @@ void Game::Render() {
 
 	//Add stuff to render here
 	renderManager->Render(renderer);
-
-	player->Render(renderer);
+	
+	player->GetBox()->Render(renderer, SDL_Color{ 0, 255, 0, 255 });
 	camera->Render(renderer);
 
 	SDL_RenderPresent(renderer);						//Render the frame

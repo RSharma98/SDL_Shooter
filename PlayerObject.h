@@ -1,36 +1,23 @@
-#pragma once
 #ifndef PLAYER_OBJECT_H
 #define PLAYER_OBJECT_H
 
-#include "GameObject.h"
-#include "BoxCollider2D.h"
+#include "CharacterObject.h"
 #include "Input.h"
-#include "Animation.h"
-#include "Animator.h"
-class PlayerObject : public GameObject
+
+class PlayerObject : public CharacterObject
 {
 public:
 	PlayerObject();
 	~PlayerObject();
-	void Initialise(SDL_Renderer* renderer, Vector2 position, Vector2 size);
+	void Initialise(Vector2 position, Vector2 size);
 	void Update();
-	void Render(SDL_Renderer* renderer);
-	void SetPosition(Vector2 position);
-	void Fall(float speed);
-	BoxCollider2D GetBox() { return box; }
 
 private:
-	float m_MoveSpeed;
-	BoxCollider2D box;
-
-	Animator* m_Animator;
-
 	std::vector<Texture*> m_IdleTextures;
 	Animation* m_IdleAnimation;
 	
 	std::vector<Texture*> m_RunTextures;
 	Animation* m_RunAnimation;
-
 };
 
 #endif // !PLAYER_OBJECT_H

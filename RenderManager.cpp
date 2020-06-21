@@ -25,7 +25,7 @@ void RenderManager::AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 pos
 
 void RenderManager::Render(SDL_Renderer* renderer) {
 	Camera* cam = Camera::Instance;
-	for (int i = 0; i < sprites.size(); i++) {
+	/*for (int i = 0; i < sprites.size(); i++) {
 		Sprite sprite = sprites[i];
 		Vector2 screenPos = cam->WorldToScreenUnits(sprite.position);
 		Vector2 spriteSize = sprite.size * cam->GetUnitSize();
@@ -47,5 +47,31 @@ void RenderManager::Render(SDL_Renderer* renderer) {
 			SDL_RenderCopy(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect);
 		}
 	}
-	sprites.clear();
+	sprites.clear();*/
+
+	while (sprites.size() > 0) {
+		Sprite sprite = sprites[0];
+		Vector2 screenPos = cam->WorldToScreenUnits(sprite.position);
+		Vector2 spriteSize = sprite.size * cam->GetUnitSize();
+		SDL_Rect destRect;
+		destRect.x = screenPos.x - spriteSize.x / 2;
+		destRect.y = screenPos.y - spriteSize.y / 2;
+		destRect.w = spriteSize.x;
+		destRect.h = spriteSize.y;
+
+		if (sprite.spriteRenderer->flipX || sprite.spriteRenderer->flipY) {
+			SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE;
+			float angle = 0;
+			if (sprite.spriteRenderer->flipX && !sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+			else if (!sprite.spriteRenderer->flipX && sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_VERTICAL;
+			else angle = 180.0f;
+			SDL_RenderCopyEx(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect, angle, NULL, flip);
+		}
+		else {
+			SDL_RenderCopy(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect);
+		}
+
+		sprites[0].spriteRenderer = nullptr;
+		sprites.erase(sprites.begin());
+	}
 }

@@ -12,13 +12,13 @@ class GameObject {
 public:
 	GameObject();
 	~GameObject();
-	void Initialise(SDL_Renderer* renderer, Vector2 position, Vector2 size);
+	void Initialise(Vector2 position, Vector2 size);
 	void Update();
-	void Render(SDL_Renderer* renderer);
-	void Hide();
-	void MakeVisible();
 	Vector2 GetPos() { return m_Pos; }
 	Vector2 GetSize() { return m_Size; }
+
+	void SetPosition(Vector2 position) { m_Pos = position; }
+	void SetSize(Vector2 size) { m_Size = size; }
 
 protected:
 	int Random(int max);

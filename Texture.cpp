@@ -21,8 +21,8 @@ void Texture::Initialise(const char* path, Vector2 position, Vector2 size)
 	m_SourceRect = SDL_Rect();
 	m_SourceRect.x = (int)(position.x - size.x / 2);
 	m_SourceRect.y = (int)(position.y - size.y / 2);
-	m_SourceRect.h = (int)(size.x);
-	m_SourceRect.w = (int)(size.y);
+	m_SourceRect.h = (int)(size.y);
+	m_SourceRect.w = (int)(size.x);
 }
 
 SDL_Rect Texture::GetSourceRect()

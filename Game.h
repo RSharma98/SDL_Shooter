@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "RenderManager.h"
 #include "PlayerObject.h"
+#include "EnemyObject.h"
 #include "Input.h"
 
 class Game {
@@ -34,6 +35,7 @@ private:
 	RenderManager* renderManager;
 	Camera* camera;
 	PlayerObject* player;
+	EnemyObject* enemy;
 	Input* input;
 };
 

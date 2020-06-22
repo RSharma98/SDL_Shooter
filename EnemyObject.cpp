@@ -4,6 +4,7 @@
 EnemyObject::EnemyObject() : CharacterObject() {
 	m_IdleAnimation = m_WalkAnimation = nullptr;
 	m_IdleTextures = m_WalkTextures = std::vector<Texture*>();
+	m_MoveSpeed = 2.0f;
 }
 
 EnemyObject::~EnemyObject() {
@@ -32,9 +33,9 @@ void EnemyObject::Initialise(Vector2 position, Vector2 size) {
 void EnemyObject::Update(Vector2 playerPos) {
 	Vector2 dir = playerPos - m_Pos;
 	dir.Normalise();
-	std::cout << "Normalised vector: " << dir << '\n';
+	//std::cout << "Normalised vector: " << dir << '\n';
 
-	m_Velocity = dir * 2.0f;
+	m_Velocity = dir * m_MoveSpeed;
 
 	CharacterObject::Update();
 }

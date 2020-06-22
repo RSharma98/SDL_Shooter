@@ -49,6 +49,18 @@ void Vector2::operator+=(Vector2 v) {
 	y += v.y;
 }
 
+bool Vector2::operator==(Vector2 v)
+{
+	if (x == v.x && y == v.y) return true;
+	return false;
+}
+
+bool Vector2::operator!=(Vector2 v)
+{
+	if (x != v.x || y != v.y) return true;
+	return false;
+}
+
 std::ostream& operator<< (std::ostream& out, const Vector2& v)
 {
 	out << "(" << v.x << ", " << v.y << ")";

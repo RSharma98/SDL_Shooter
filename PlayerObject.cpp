@@ -3,6 +3,9 @@
 PlayerObject::PlayerObject() : CharacterObject() {
 	m_IdleAnimation = m_RunAnimation = nullptr;
 	m_IdleTextures = m_RunTextures = std::vector<Texture*>();
+
+	m_MoveSpeed = 5.0f;
+	m_DirLastFrame = Vector2();
 }
 
 PlayerObject::~PlayerObject(){
@@ -38,7 +41,21 @@ void PlayerObject::Update() {
 	if (Input::GetKey(Input::KeyCode::S) || Input::GetKey(Input::KeyCode::DownArrow)) dir.y = -1;
 	else if (Input::GetKey(Input::KeyCode::W) || Input::GetKey(Input::KeyCode::UpArrow)) dir.y = 1;
 
-	m_Velocity = dir * 5.0f;
+	if (dir.x == 0 || dir.y == 0) {
+		m_Velocity = dir * m_MoveSpeed;
+	}
+	else {
+		if (dir != m_DirLastFrame) {
+			if (dir.x != 0 && m_DirLastFrame.x == 0) {
+				m_Velocity = Vector2(m_MoveSpeed * dir.x, 0);
+			}
+			else if (dir.y != 0 && m_DirLastFrame.y == 0) {
+				m_Velocity = Vector2(0, m_MoveSpeed * dir.y);
+			}
+		}
+	}
+
+	m_DirLastFrame = dir;
 
 	if (dir.x != 0 || dir.y != 0) m_Animator->SetAnimation("Run");
 	else m_Animator->SetAnimation("Idle");

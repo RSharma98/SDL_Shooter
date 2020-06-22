@@ -18,6 +18,7 @@ public:
 	BoxCollider2D* GetBox() { return m_Box; }
 
 protected:
+	float m_MoveSpeed;
 	Vector2 m_Velocity;
 	BoxCollider2D* m_Box;
 

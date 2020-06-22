@@ -2,6 +2,7 @@
 
 CharacterObject::CharacterObject()
 {
+	m_MoveSpeed = 0.0f;
 	m_Velocity = Vector2(0, 0);
 	m_Animator = new Animator();
 	m_Box = new BoxCollider2D();

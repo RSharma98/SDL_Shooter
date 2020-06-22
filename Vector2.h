@@ -18,6 +18,8 @@ public:
 	Vector2 operator+(Vector2 v);
 	Vector2 operator-(Vector2 v);
 	void operator+=(Vector2 v);
+	bool operator==(Vector2 v);
+	bool operator!=(Vector2 v);
 	friend std::ostream& operator<< (std::ostream& out, const Vector2& v);
 };
 

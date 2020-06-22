@@ -13,6 +13,8 @@ public:
 	void Update();
 
 private:
+	Vector2 m_DirLastFrame;	
+	
 	std::vector<Texture*> m_IdleTextures;
 	Animation* m_IdleAnimation;
 	

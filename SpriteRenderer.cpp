@@ -8,6 +8,9 @@ SpriteRenderer::SpriteRenderer() {
 	colour = SDL_Color{ 255, 255, 255, 255 };
 }
 
+SpriteRenderer::~SpriteRenderer() {
+}
+
 void SpriteRenderer::SetTexture(Texture* texture) {
 	m_Texture = texture;
 }

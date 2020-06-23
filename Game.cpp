@@ -27,29 +27,29 @@ Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fu
 		//SDL_RenderSetViewport(renderer, &view);
 	}
 
-
-	camera = new Camera(5);
-	std::cout << camera->position.x << ", " << camera->position.y << '\n';
-	renderManager = new RenderManager();
-	input = new Input();
-	player = new PlayerObject(Vector2(0, 0), Vector2(1, 1));
-	enemy = new EnemyObject(Vector2(0, 0), Vector2(1, 1.4f));
-	bullet = new BulletObject(Vector2(-5, 5), Vector2(0, 0), Vector2(0.2f, 0.2f));
+	renderManager = nullptr;
+	camera = nullptr;
+	player = nullptr;
+	enemy = nullptr;
+	input = nullptr;
 }
 
 Game::~Game() {
 
 }
 
+//Use this method to initialise all game elements
 void Game::Initialise() {
-	//player->Initialise(Vector2(0, 0), Vector2(1, 1));
-	//enemy->Initialise(Vector2(0, 0), Vector2(1, 1.25f));
+	camera = new Camera(5);
+	renderManager = new RenderManager();
+	input = new Input();
+	player = new PlayerObject(Vector2(0, 0), Vector2(1, 1));
+	enemy = new EnemyObject(Vector2(0, 0), Vector2(1, 1.4f));
 }
 
 void Game::Update() {
 	player->Update();
 	enemy->Update(player->GetPos());
-	bullet->Update();
 }
 
 //This function handles keyboard movement (moving the player and quitting)

@@ -1,12 +1,11 @@
 #include "PlayerObject.h"
+#include <iostream>
 
 PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(position, size) {
-	m_IdleAnimation = m_RunAnimation = nullptr;
-	m_IdleTextures = m_RunTextures = std::vector<Texture*>();
-
 	m_MoveSpeed = 5.0f;
 	m_DirLastFrame = Vector2();
 
+	m_IdleTextures = m_RunTextures = std::vector<Texture*>();
 	for (int i = 0; i < 13; i++) {
 		if (i < 8) {
 			m_RunTextures.push_back(new Texture("Assets/Adventurer Sprite Sheet v1.1.png", Vector2(16 + (32 * i), 48), Vector2(32, 32)));
@@ -19,6 +18,8 @@ PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(pos
 	m_Animator->AddAnimation(m_IdleAnimation);
 	m_Animator->AddAnimation(m_RunAnimation);
 	m_Animator->SetAnimation("Idle");
+
+	m_Bullets = std::vector<BulletObject*>();
 }
 
 PlayerObject::~PlayerObject(){
@@ -53,6 +54,20 @@ void PlayerObject::Update() {
 
 	if (dir.x != 0 || dir.y != 0) m_Animator->SetAnimation("Run");
 	else m_Animator->SetAnimation("Idle");
+
+	if (Input::GetMouseButtonDown(0)) {
+		m_Bullets.push_back(new BulletObject(Camera::Instance->ScreenToWorldUnits(Input::GetMousePosition()), m_Pos, Vector2(0.2f, 0.2f)));
+	}
+
+	for (int i = 0; i < m_Bullets.size(); i++) {
+		m_Bullets[i]->Update();
+		if (m_Bullets[i]->GetTimeToDestroy() <= 0.0f) {
+			delete m_Bullets[i];
+			m_Bullets[i] = nullptr;
+			m_Bullets.erase(m_Bullets.begin() + i);
+			std::cout << "Deleted bullet\n";
+		}
+	}
 
 	CharacterObject::Update();
 }

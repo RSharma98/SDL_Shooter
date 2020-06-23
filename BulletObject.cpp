@@ -2,7 +2,8 @@
 
 BulletObject::BulletObject(Vector2 mousePos, Vector2 position, Vector2 size) : GameObject(position, size)
 {
-	m_MoveSpeed = 2.0f;
+	m_MoveSpeed = 10.0f;
+	m_TimeToDestroy = 7.0f;
 	m_Velocity = Vector2(0, 0);
 	m_Box = new BoxCollider2D(position, Vector2(0, 0), size);
 	m_Dir = mousePos - position;
@@ -13,6 +14,8 @@ BulletObject::BulletObject(Vector2 mousePos, Vector2 position, Vector2 size) : G
 
 BulletObject::~BulletObject()
 {
+	delete m_Box;
+	m_Box = nullptr;
 }
 
 void BulletObject::Update()
@@ -23,4 +26,6 @@ void BulletObject::Update()
 	GameObject::Update();
 	m_Box->position = m_Pos;
 	m_Box->Update();
+
+	m_TimeToDestroy -= Time::GetDeltaTime();
 }

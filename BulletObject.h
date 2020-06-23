@@ -15,8 +15,11 @@ public:
 	void Update();
 	BoxCollider2D* GetBox() { return m_Box; }
 
+	float GetTimeToDestroy() { return m_TimeToDestroy; }	//The time until this object is destroyed
+
 protected:
 	float m_MoveSpeed;
+	float m_TimeToDestroy;
 	Vector2 m_Velocity;
 	Vector2 m_Dir;
 	BoxCollider2D* m_Box;

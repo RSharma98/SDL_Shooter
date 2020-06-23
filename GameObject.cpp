@@ -8,7 +8,6 @@ GameObject::GameObject(Vector2 position, Vector2 size) {
 }
 
 GameObject::~GameObject() {
-
 }
 
 //Update moves the sprite as needed

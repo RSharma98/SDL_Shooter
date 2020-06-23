@@ -37,7 +37,6 @@ private:
 	Camera* camera;
 	PlayerObject* player;
 	EnemyObject* enemy;
-	BulletObject* bullet;
 	Input* input;
 };
 

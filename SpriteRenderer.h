@@ -8,6 +8,7 @@
 class SpriteRenderer {
 public:
 	SpriteRenderer();
+	~SpriteRenderer();
 	void SetTexture(Texture* texture);
 
 	Texture* m_Texture;

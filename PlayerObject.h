@@ -2,6 +2,7 @@
 #define PLAYER_OBJECT_H
 
 #include "CharacterObject.h"
+#include "BulletObject.h"
 #include "Input.h"
 
 class PlayerObject : public CharacterObject
@@ -19,6 +20,8 @@ private:
 	
 	std::vector<Texture*> m_RunTextures;
 	Animation* m_RunAnimation;
+
+	std::vector<BulletObject*> m_Bullets;
 };
 
 #endif // !PLAYER_OBJECT_H

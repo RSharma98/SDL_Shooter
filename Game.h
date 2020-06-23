@@ -10,6 +10,7 @@
 #include "PlayerObject.h"
 #include "EnemyObject.h"
 #include "Input.h"
+#include "BulletObject.h"
 
 class Game {
 public:
@@ -36,6 +37,7 @@ private:
 	Camera* camera;
 	PlayerObject* player;
 	EnemyObject* enemy;
+	BulletObject* bullet;
 	Input* input;
 };
 

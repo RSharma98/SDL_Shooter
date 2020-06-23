@@ -6,31 +6,35 @@ int Game::Height = 0;
 SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game(const char* title, int xPos, int yPos, int width, int height, bool fullscreen) {
-	Game::Width = width;
-	Game::Height = height;
-	input = new Input();
-	std::cout << Game::Width << ", " << Game::Height << '\n';
-	camera = new Camera(5);
-	std::cout << camera->position.x << ", " << camera->position.y << '\n';
 	renderer = nullptr;
 	window = nullptr;
-	frames = 0;
-	player = new PlayerObject();
-	enemy = new EnemyObject();
+
+	Game::Width = width;
+	Game::Height = height;
+	std::cout << Game::Width << ", " << Game::Height << '\n';
+
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
-	renderManager = new RenderManager();
 	isRunning = false;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		window = SDL_CreateWindow(title, xPos, yPos, width, height, flags);
 		if (window) std::cout << "Window created.\n";
 
-		Game::renderer = SDL_CreateRenderer(window, -1, 0);
+		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer) std::cout << "Renderer created.\n";
 		isRunning = true;
 
 		//SDL_Rect view = { 0, 0, 320, 180 };
 		//SDL_RenderSetViewport(renderer, &view);
 	}
+
+
+	camera = new Camera(5);
+	std::cout << camera->position.x << ", " << camera->position.y << '\n';
+	renderManager = new RenderManager();
+	input = new Input();
+	player = new PlayerObject(Vector2(0, 0), Vector2(1, 1));
+	enemy = new EnemyObject(Vector2(0, 0), Vector2(1, 1.4f));
+	bullet = new BulletObject(Vector2(-5, 5), Vector2(0, 0), Vector2(0.2f, 0.2f));
 }
 
 Game::~Game() {
@@ -38,13 +42,14 @@ Game::~Game() {
 }
 
 void Game::Initialise() {
-	player->Initialise(Vector2(0, 0), Vector2(1, 1));
-	enemy->Initialise(Vector2(0, 0), Vector2(1, 1.25f));
+	//player->Initialise(Vector2(0, 0), Vector2(1, 1));
+	//enemy->Initialise(Vector2(0, 0), Vector2(1, 1.25f));
 }
 
 void Game::Update() {
 	player->Update();
 	enemy->Update(player->GetPos());
+	bullet->Update();
 }
 
 //This function handles keyboard movement (moving the player and quitting)

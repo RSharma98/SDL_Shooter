@@ -10,9 +10,8 @@
 
 class GameObject {
 public:
-	GameObject();
+	GameObject(Vector2 position, Vector2 size);
 	~GameObject();
-	void Initialise(Vector2 position, Vector2 size);
 	void Update();
 	Vector2 GetPos() { return m_Pos; }
 	Vector2 GetSize() { return m_Size; }

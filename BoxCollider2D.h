@@ -7,7 +7,7 @@
 
 class BoxCollider2D {
 public:
-	void Initialise(Vector2 position, Vector2 offset, Vector2 size);
+	BoxCollider2D(Vector2 position, Vector2 offset, Vector2 size);
 	void Update();
 	
 	Vector2 position;

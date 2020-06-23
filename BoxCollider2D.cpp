@@ -1,7 +1,7 @@
 #include "BoxCollider2D.h"
 #include "Debug.h"
 
-void BoxCollider2D::Initialise(Vector2 position, Vector2 offset, Vector2 size) {
+BoxCollider2D::BoxCollider2D(Vector2 position, Vector2 offset, Vector2 size) {
 	Camera* cam = Camera::Instance;
 	this->position = position;
 	this->offset = offset;

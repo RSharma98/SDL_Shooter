@@ -7,9 +7,8 @@
 class PlayerObject : public CharacterObject
 {
 public:
-	PlayerObject();
+	PlayerObject(Vector2 position, Vector2 size);
 	~PlayerObject();
-	void Initialise(Vector2 position, Vector2 size);
 	void Update();
 
 private:

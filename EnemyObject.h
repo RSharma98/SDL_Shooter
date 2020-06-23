@@ -6,9 +6,8 @@
 class EnemyObject : public CharacterObject
 {
 public:
-	EnemyObject();
+	EnemyObject(Vector2 position, Vector2 size);
 	~EnemyObject();
-	void Initialise(Vector2 position, Vector2 size);
 	void Update(Vector2 playerPos);
 
 private:

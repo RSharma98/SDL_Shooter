@@ -1,5 +1,5 @@
-#ifndef CHARACTER_OBJECT_H
-#define CHARACTER_OBJECT_H
+#ifndef BULLET_OBJECT_H
+#define BULLET_OBJECT_H
 
 #include "GameObject.h"
 #include "BoxCollider2D.h"
@@ -7,20 +7,21 @@
 #include "Animator.h"
 #include "Time.h"
 
-class CharacterObject : public GameObject
+class BulletObject : public GameObject
 {
 public:
-	CharacterObject(Vector2 position, Vector2 size);
-	~CharacterObject();
+	BulletObject(Vector2 mousePos, Vector2 position, Vector2 size);
+	~BulletObject();
 	void Update();
 	BoxCollider2D* GetBox() { return m_Box; }
 
 protected:
 	float m_MoveSpeed;
 	Vector2 m_Velocity;
+	Vector2 m_Dir;
 	BoxCollider2D* m_Box;
 
-	Animator* m_Animator;
+	Texture* m_Texture;
 };
 
-#endif // !CHARACTER_OBJECT_H
+#endif // !BULLET_OBJECT_H

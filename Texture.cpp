@@ -1,18 +1,12 @@
 #include "Texture.h"
 #include "Game.h"
 
-Texture::Texture()
-{
+Texture::Texture() {
 	m_Texture = nullptr;
 	m_SourceRect = SDL_Rect();
 }
 
-Texture::~Texture()
-{
-	delete m_Texture;
-}
-
-void Texture::Initialise(const char* path, Vector2 position, Vector2 size)
+Texture::Texture(const char* path, Vector2 position, Vector2 size)
 {
 	SDL_Surface* surface = IMG_Load(path);
 	m_Texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
@@ -23,6 +17,11 @@ void Texture::Initialise(const char* path, Vector2 position, Vector2 size)
 	m_SourceRect.y = (int)(position.y - size.y / 2);
 	m_SourceRect.h = (int)(size.y);
 	m_SourceRect.w = (int)(size.x);
+}
+
+Texture::~Texture()
+{
+	delete m_Texture;
 }
 
 SDL_Rect Texture::GetSourceRect()

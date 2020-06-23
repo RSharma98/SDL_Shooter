@@ -8,8 +8,8 @@
 class Texture {
 public:
 	Texture();
+	Texture(const char* path, Vector2 position, Vector2 size);
 	~Texture();
-	void Initialise(const char* path, Vector2 position, Vector2 size);
 	SDL_Rect GetSourceRect();
 	SDL_Texture* GetTexture();
 

@@ -1,24 +1,17 @@
 #include "PlayerObject.h"
 
-PlayerObject::PlayerObject() : CharacterObject() {
+PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(position, size) {
 	m_IdleAnimation = m_RunAnimation = nullptr;
 	m_IdleTextures = m_RunTextures = std::vector<Texture*>();
 
 	m_MoveSpeed = 5.0f;
 	m_DirLastFrame = Vector2();
-}
 
-PlayerObject::~PlayerObject(){
-}
-
-void PlayerObject::Initialise(Vector2 position, Vector2 size) {
 	for (int i = 0; i < 13; i++) {
 		if (i < 8) {
-			m_RunTextures.push_back(new Texture());
-			m_RunTextures.at(i)->Initialise("Assets/Adventurer Sprite Sheet v1.1.png", Vector2(16 + (32 * i), 48), Vector2(32, 32));
+			m_RunTextures.push_back(new Texture("Assets/Adventurer Sprite Sheet v1.1.png", Vector2(16 + (32 * i), 48), Vector2(32, 32)));
 		}
-		m_IdleTextures.push_back(new Texture());
-		m_IdleTextures.at(i)->Initialise("Assets/Adventurer Sprite Sheet v1.1.png", Vector2(16 + (32 * i), 16), Vector2(32, 32));
+		m_IdleTextures.push_back(new Texture("Assets/Adventurer Sprite Sheet v1.1.png", Vector2(16 + (32 * i), 16), Vector2(32, 32)));
 	}
 	m_IdleAnimation = new Animation("Idle", m_IdleTextures, 0.1f);
 	m_RunAnimation = new Animation("Run", m_RunTextures, 0.1f);
@@ -26,8 +19,9 @@ void PlayerObject::Initialise(Vector2 position, Vector2 size) {
 	m_Animator->AddAnimation(m_IdleAnimation);
 	m_Animator->AddAnimation(m_RunAnimation);
 	m_Animator->SetAnimation("Idle");
-	
-	CharacterObject::Initialise(position, size);
+}
+
+PlayerObject::~PlayerObject(){
 }
 
 void PlayerObject::Update() {

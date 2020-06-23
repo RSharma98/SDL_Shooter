@@ -1,19 +1,14 @@
 #include "GameObject.h"
 #include <iostream>
 
-GameObject::GameObject() {
+GameObject::GameObject(Vector2 position, Vector2 size) {
 	spriteRenderer = new SpriteRenderer();
+	m_Pos = position;
+	m_Size = size;
 }
 
 GameObject::~GameObject() {
 
-}
-
-//This function intialises the object by rendering a sprite based on the specified values
-void GameObject::Initialise(Vector2 position, Vector2 size) {
-	spriteRenderer = new SpriteRenderer();
-	m_Pos = position;
-	m_Size = size;
 }
 
 //Update moves the sprite as needed

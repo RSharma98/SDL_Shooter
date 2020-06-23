@@ -17,7 +17,7 @@ int main(int args, char* argv[]) {
 	unsigned int WIDTH = MAX_WIDTH - (MAX_WIDTH % 16);
 	unsigned int HEIGHT = (WIDTH / 16) * 9;
 
-	game = new Game("SDL Platformer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, false);	//Initialise the game
+	game = new Game("SDL Shooter", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, false);	//Initialise the game
 	game->Initialise();
 	while (game->Running()) {			//While the game is running
 		LAST = NOW;

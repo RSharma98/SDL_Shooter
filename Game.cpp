@@ -92,11 +92,24 @@ void Game::Render() {
 
 //This function is called when the game exits
 void Game::Clean() {
+	delete camera;
+	camera = nullptr;
+
+	delete player;
+	player = nullptr;
+
+	delete enemy;
+	enemy = nullptr;
+
+	delete renderManager;
+	renderManager = nullptr;
+
+	delete input;
+	input = nullptr;
+
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-
-	delete camera;
 
 	std::cout << "Game cleaned.\n";
 }

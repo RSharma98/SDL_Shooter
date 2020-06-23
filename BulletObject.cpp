@@ -16,6 +16,9 @@ BulletObject::~BulletObject()
 {
 	delete m_Box;
 	m_Box = nullptr;
+
+	delete m_Texture;
+	m_Texture = nullptr;
 }
 
 void BulletObject::Update()

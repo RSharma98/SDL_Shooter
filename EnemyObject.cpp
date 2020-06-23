@@ -22,6 +22,8 @@ EnemyObject::EnemyObject(Vector2 position, Vector2 size) : CharacterObject(posit
 }
 
 EnemyObject::~EnemyObject() {
+	m_IdleAnimation = nullptr;
+	m_WalkAnimation = nullptr;
 }
 
 void EnemyObject::Update(Vector2 playerPos) {

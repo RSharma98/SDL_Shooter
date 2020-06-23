@@ -8,6 +8,10 @@ GameObject::GameObject(Vector2 position, Vector2 size) {
 }
 
 GameObject::~GameObject() {
+	RenderManager::Instance->RemoveFromRenderQueue(spriteRenderer);
+
+	delete spriteRenderer;
+	spriteRenderer = nullptr;
 }
 
 //Update moves the sprite as needed

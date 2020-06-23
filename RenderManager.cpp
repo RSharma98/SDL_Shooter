@@ -15,12 +15,30 @@ RenderManager::RenderManager() {
 	sprites = std::vector<Sprite>();
 }
 
+RenderManager::~RenderManager() {
+	while(sprites.size() > 0){
+		sprites[0].spriteRenderer = nullptr;
+		sprites.erase(sprites.begin());
+	}
+}
+
 void RenderManager::AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 position, Vector2 size) {
 	Sprite sprite;
 	sprite.spriteRenderer = spriteRenderer;
 	sprite.position = position;
 	sprite.size = size;
 	sprites.push_back(sprite);
+}
+
+void RenderManager::RemoveFromRenderQueue(SpriteRenderer* spriteRenderer)
+{
+	for (int i = 0; i < sprites.size(); i++) {
+		if (sprites[i].spriteRenderer == spriteRenderer) {
+			sprites[i].spriteRenderer = nullptr;
+			sprites.erase(sprites.begin() + i);
+			break;
+		}
+	}
 }
 
 void RenderManager::Render(SDL_Renderer* renderer) {

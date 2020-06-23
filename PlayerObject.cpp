@@ -23,6 +23,14 @@ PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(pos
 }
 
 PlayerObject::~PlayerObject(){
+	for (int i = 0; i < m_Bullets.size(); i++) {
+		delete m_Bullets[i];
+		m_Bullets[i] = nullptr;
+		m_Bullets.erase(m_Bullets.begin() + i);
+	}
+
+	m_IdleAnimation = nullptr;
+	m_RunAnimation = nullptr;
 }
 
 void PlayerObject::Update() {
@@ -65,7 +73,6 @@ void PlayerObject::Update() {
 			delete m_Bullets[i];
 			m_Bullets[i] = nullptr;
 			m_Bullets.erase(m_Bullets.begin() + i);
-			std::cout << "Deleted bullet\n";
 		}
 	}
 

@@ -8,6 +8,11 @@ Animator::Animator()
 
 Animator::~Animator()
 {
+	for (int i = 0; i < m_Animations.size(); i++) {
+		delete m_Animations[i];
+		m_Animations[i] = nullptr;
+		m_Animations.erase(m_Animations.begin() + i);
+	}
 }
 
 void Animator::Update()

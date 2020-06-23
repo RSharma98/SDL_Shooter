@@ -15,7 +15,11 @@ Animation::Animation(const char* name, std::vector<Texture*> textures, float upd
 }
 
 Animation::~Animation() {
-
+	for (int i = 0; i < m_Textures.size(); i++) {
+		delete m_Textures[i];
+		m_Textures[i] = nullptr;
+		m_Textures.erase(m_Textures.begin() + i);
+	}
 }
 
 void Animation::Play() {

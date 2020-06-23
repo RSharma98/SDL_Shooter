@@ -9,6 +9,7 @@ SpriteRenderer::SpriteRenderer() {
 }
 
 SpriteRenderer::~SpriteRenderer() {
+	m_Texture = nullptr;
 }
 
 void SpriteRenderer::SetTexture(Texture* texture) {

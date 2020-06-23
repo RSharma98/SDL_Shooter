@@ -21,7 +21,7 @@ Texture::Texture(const char* path, Vector2 position, Vector2 size)
 
 Texture::~Texture()
 {
-	delete m_Texture;
+	SDL_DestroyTexture(m_Texture);
 }
 
 SDL_Rect Texture::GetSourceRect()

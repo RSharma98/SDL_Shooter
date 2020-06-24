@@ -5,6 +5,7 @@ GameObject::GameObject(Vector2 position, Vector2 size) {
 	spriteRenderer = new SpriteRenderer();
 	m_Pos = position;
 	m_Size = size;
+	m_Angle = 0;
 }
 
 GameObject::~GameObject() {
@@ -16,7 +17,7 @@ GameObject::~GameObject() {
 
 //Update moves the sprite as needed
 void GameObject::Update() {
-	RenderManager::Instance->AddToRenderQueue(spriteRenderer, m_Pos, m_Size);
+	RenderManager::Instance->AddToRenderQueue(spriteRenderer, m_Pos, m_Size, m_Angle);
 }
 
 //This function generates a random number between zero and max

@@ -2,6 +2,7 @@
 #define PLAYER_OBJECT_H
 
 #include "CharacterObject.h"
+#include "GunObject.h"
 #include "BulletObject.h"
 #include "Input.h"
 
@@ -20,6 +21,8 @@ private:
 	
 	std::vector<Texture*> m_RunTextures;
 	Animation* m_RunAnimation;
+
+	GunObject* gun;
 
 	std::vector<BulletObject*> m_Bullets;
 };

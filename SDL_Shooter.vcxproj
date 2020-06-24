@@ -86,6 +86,7 @@
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GunObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GunObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="PlayerObject.h" />

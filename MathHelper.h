@@ -14,5 +14,9 @@ public:
 		t = Clamp(t, 0, 1);
 		return start + ((target - start) * t);
 	}
+
+	static float Absolute(float value) {
+		return value * Sign(value);
+	}
 };
 #endif // !MATHHELPER_H

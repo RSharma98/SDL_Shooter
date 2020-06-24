@@ -12,7 +12,7 @@ public:
 	RenderManager();
 	~RenderManager();
 	void Render(SDL_Renderer* renderer);
-	void AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 position, Vector2 size);
+	void AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 position, Vector2 size, float angle);
 	void RemoveFromRenderQueue(SpriteRenderer* spriteRenderer);
 	static RenderManager* Instance;
 

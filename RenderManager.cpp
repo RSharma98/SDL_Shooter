@@ -8,6 +8,7 @@ public:
 	SpriteRenderer* spriteRenderer;
 	Vector2 position;
 	Vector2 size;
+	float angle;
 };
 
 RenderManager::RenderManager() {
@@ -22,11 +23,12 @@ RenderManager::~RenderManager() {
 	}
 }
 
-void RenderManager::AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 position, Vector2 size) {
+void RenderManager::AddToRenderQueue(SpriteRenderer* spriteRenderer, Vector2 position, Vector2 size, float angle) {
 	Sprite sprite;
 	sprite.spriteRenderer = spriteRenderer;
 	sprite.position = position;
 	sprite.size = size;
+	sprite.angle = angle;
 	sprites.push_back(sprite);
 }
 
@@ -77,17 +79,14 @@ void RenderManager::Render(SDL_Renderer* renderer) {
 		destRect.w = spriteSize.x;
 		destRect.h = spriteSize.y;
 
+		SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE;
+		float angle = sprite.angle;
 		if (sprite.spriteRenderer->flipX || sprite.spriteRenderer->flipY) {
-			SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE;
-			float angle = 0;
 			if (sprite.spriteRenderer->flipX && !sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			else if (!sprite.spriteRenderer->flipX && sprite.spriteRenderer->flipY) flip = SDL_RendererFlip::SDL_FLIP_VERTICAL;
-			else angle = 180.0f;
-			SDL_RenderCopyEx(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect, angle, NULL, flip);
+			else angle = sprite.angle - 180.0f;
 		}
-		else {
-			SDL_RenderCopy(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect);
-		}
+		SDL_RenderCopyEx(renderer, sprite.spriteRenderer->m_Texture->GetTexture(), &sprite.spriteRenderer->m_Texture->GetSourceRect(), &destRect, angle, NULL, flip);
 
 		sprites[0].spriteRenderer = nullptr;
 		sprites.erase(sprites.begin());

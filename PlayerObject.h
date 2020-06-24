@@ -23,8 +23,6 @@ private:
 	Animation* m_RunAnimation;
 
 	GunObject* gun;
-
-	std::vector<BulletObject*> m_Bullets;
 };
 
 #endif // !PLAYER_OBJECT_H

@@ -15,6 +15,7 @@ public:
 	float GetMagnitude();
 
 	Vector2 operator*(float n);
+	Vector2 operator*(Vector2 v);
 	Vector2 operator+(Vector2 v);
 	Vector2 operator-(Vector2 v);
 	void operator+=(Vector2 v);

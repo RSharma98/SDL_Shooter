@@ -1,12 +1,13 @@
 #include "BulletObject.h"
 
-BulletObject::BulletObject(Vector2 mousePos, Vector2 position, Vector2 size) : GameObject(position, size)
+BulletObject::BulletObject(Vector2 position, Vector2 dir, Vector2 size) : GameObject(position, size)
 {
 	m_MoveSpeed = 10.0f;
 	m_TimeToDestroy = 7.0f;
 	m_Velocity = Vector2(0, 0);
 	m_Box = new BoxCollider2D(position, Vector2(0, 0), size);
-	m_Dir = mousePos - position;
+	m_Dir = dir;
+	m_Angle = atan2(dir.y, dir.x) * 180.0f / M_PI * -1;	//Calculate the angle
 	m_Dir.Normalise();
 	m_Texture = new Texture("Assets/Square.png", Vector2(1, 1), Vector2(2, 2));
 	spriteRenderer->SetTexture(m_Texture);

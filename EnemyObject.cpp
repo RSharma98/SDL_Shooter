@@ -4,7 +4,7 @@
 EnemyObject::EnemyObject(Vector2 position, Vector2 size) : CharacterObject(position, size) {
 	m_IdleAnimation = m_WalkAnimation = nullptr;
 	m_IdleTextures = m_WalkTextures = std::vector<Texture*>();
-	m_MoveSpeed = 3.0f;
+	m_MoveSpeed = 0.0f;
 
 	for (int i = 0; i < 13; i++) {
 		if (i < 8) {

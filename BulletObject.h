@@ -10,7 +10,7 @@
 class BulletObject : public GameObject
 {
 public:
-	BulletObject(Vector2 mousePos, Vector2 position, Vector2 size);
+	BulletObject(Vector2 position, Vector2 dir, Vector2 size);
 	~BulletObject();
 	void Update();
 	BoxCollider2D* GetBox() { return m_Box; }

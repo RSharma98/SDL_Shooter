@@ -3,6 +3,9 @@
 #include "MathHelper.h"
 
 PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(position, size) {
+	m_Box->size = size * Vector2(0.55f, 0.7f);
+	m_Box->offset = Vector2(-0.1f, -0.1f);
+
 	m_MoveSpeed = 5.0f;
 	m_DirLastFrame = Vector2();
 
@@ -19,19 +22,11 @@ PlayerObject::PlayerObject(Vector2 position, Vector2 size) : CharacterObject(pos
 	m_Animator->AddAnimation(m_IdleAnimation);
 	m_Animator->AddAnimation(m_RunAnimation);
 	m_Animator->SetAnimation("Idle");
-
-	m_Bullets = std::vector<BulletObject*>();
-
+	
 	gun = new GunObject(m_Pos, Vector2(0.7f, 0.35f));
 }
 
 PlayerObject::~PlayerObject(){
-	for (int i = 0; i < m_Bullets.size(); i++) {
-		delete m_Bullets[i];
-		m_Bullets[i] = nullptr;
-		m_Bullets.erase(m_Bullets.begin() + i);
-	}
-
 	m_IdleAnimation = nullptr;
 	m_RunAnimation = nullptr;
 
@@ -69,27 +64,9 @@ void PlayerObject::Update() {
 	if (dir.x != 0 || dir.y != 0) m_Animator->SetAnimation("Run");
 	else m_Animator->SetAnimation("Idle");
 
-	Vector2 mousePos = Camera::Instance->ScreenToWorldUnits(Input::GetMousePosition());
-	float opp = mousePos.y - m_Pos.y;
-	float adj = mousePos.x - m_Pos.x;
-
-	if (Input::GetMouseButtonDown(0)) {
-		m_Bullets.push_back(new BulletObject(mousePos, m_Pos, Vector2(0.2f, 0.2f)));
-	}
-
-	for (int i = 0; i < m_Bullets.size(); i++) {
-		m_Bullets[i]->Update();
-		if (m_Bullets[i]->GetTimeToDestroy() <= 0.0f) {
-			delete m_Bullets[i];
-			m_Bullets[i] = nullptr;
-			m_Bullets.erase(m_Bullets.begin() + i);
-		}
-	}
+	if(m_Velocity.x != 0) m_Box->offset = Vector2(-0.1f * MathHelper::Sign(m_Velocity.x), -0.1f);
 
 	CharacterObject::Update();
 
-	float gunAngle = atan2(opp, adj) * 180.0f / M_PI * -1;
-	gun->GetSpriteRenderer()->flipY = MathHelper::Absolute(gunAngle) > 90.0f;
-	Vector2 gunPos = Vector2(m_Pos.x, m_Pos.y - (m_Size.y / 4));
-	gun->Update(gunPos, gunAngle);
+	gun->Update(Vector2(m_Pos.x, m_Pos.y - m_Size.y / 4));
 }

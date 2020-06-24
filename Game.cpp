@@ -84,8 +84,9 @@ void Game::Render() {
 	//Add stuff to render here
 	renderManager->Render(renderer);
 	
-	player->GetBox()->Render(renderer, SDL_Color{ 0, 255, 0, 255 });
-	camera->Render(renderer);
+	//player->GetBox()->Render(renderer, SDL_Color{ 0, 255, 0, 255 });
+	//enemy->GetBox()->Render(renderer, SDL_Color{ 0, 255, 0, 255 });
+	//camera->Render(renderer);
 
 	SDL_RenderPresent(renderer);						//Render the frame
 }

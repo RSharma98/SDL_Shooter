@@ -2,6 +2,7 @@
 #include <iostream>
 
 EnemyObject::EnemyObject(Vector2 position, Vector2 size) : CharacterObject(position, size) {
+	spriteRenderer->layerOrder = 1;
 	m_IdleAnimation = m_WalkAnimation = nullptr;
 	m_IdleTextures = m_WalkTextures = std::vector<Texture*>();
 	m_MoveSpeed = 0.0f;

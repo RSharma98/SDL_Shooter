@@ -12,9 +12,10 @@ public:
 	void SetTexture(Texture* texture);
 
 	Texture* m_Texture;
-	bool flipX = false;
-	bool flipY = false;
-	bool renderSprite = true;
+	bool flipX;
+	bool flipY;
+	bool renderSprite;
+	int layerOrder;
 	SDL_Color colour;
 };
 

@@ -1,10 +1,11 @@
 #include "SpriteRenderer.h"
 
-//Initialise a sprite rendererer so an image can be loaded based on the image path and specified rects
+//Initialise the sprite rendererer
 SpriteRenderer::SpriteRenderer() {
 	m_Texture = new Texture();
 	flipX = flipY = false;
 	renderSprite = true;
+	layerOrder = 0;
 	colour = SDL_Color{ 255, 255, 255, 255 };
 }
 
